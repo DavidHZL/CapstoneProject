@@ -21,7 +21,7 @@
                         <c:if test="${currentUser != null}">
                             <li class="navListItem">
                                 <form action="Navigation" method="POST">
-                                    <input type="hidden" name="url" value="/page/profile.jsp">
+                                    <input type="hidden" name="url" value="/page/profile/profile.jsp">
                                     <input type="submit" value="Profile" class="navButton">
                                 </form>
                             </li>

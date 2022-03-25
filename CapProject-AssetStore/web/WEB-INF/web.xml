@@ -12,6 +12,10 @@
         <servlet-name>Authorize</servlet-name>
         <servlet-class>controller.Authorize</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>controller.Profile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Authorize</servlet-name>
         <url-pattern>/Authorize</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

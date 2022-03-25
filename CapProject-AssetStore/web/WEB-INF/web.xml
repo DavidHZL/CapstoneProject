@@ -16,6 +16,10 @@
         <servlet-name>Profile</servlet-name>
         <servlet-class>controller.Profile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUpload</servlet-name>
+        <servlet-class>controller.FileUpload</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -32,9 +36,20 @@
         <servlet-name>Profile</servlet-name>
         <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/FileUpload</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <context-param>
+        <description>Location to store uploaded files</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            c:\Users\Dadvid\source\repos\CapstoneProject\CapProject-AssetStore\web\resources\
+        </param-value>
+    </context-param>
 </web-app>

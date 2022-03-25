@@ -11,6 +11,8 @@ $(document).ready(() => {
             $("#mainModal").fadeOut(100);
         }
     });
+    
+    retrievePosts();
 });
 
 function showForm() {
@@ -82,7 +84,7 @@ function showForm() {
             timeout: 600000,
             success: (result) => {
                 $("#mainModal").fadeOut(500);
-                console.log(result);
+                retrievePosts();
             },
             error: function (e) {
                 $("#result").text(e.responseText);
@@ -111,5 +113,22 @@ function addTag() {
     tagContainer.append(li);
 
     document.querySelector("#newPostTag").value = "";
+}
+
+function retrievePosts() {
+    postList = "";
+    $.ajax({
+        type: "GET",
+        url: "FileUpload",
+        dataType: "JSON",
+        success: (result) => {
+            postList = result;
+            console.log(postList);
+//            displayPosts(postList);
+        },
+        error: function (jqXHR, ex) {
+            console.log(jqXHR);
+        }
+    });
 }
 

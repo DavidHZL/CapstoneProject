@@ -8,6 +8,9 @@ package data;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +27,55 @@ import model.Profile;
  * @author Dadvid
  */
 public class PostDB {
+    public static ArrayList<Post> retrieveAllPosts() throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        FileOutputStream fs = null;
+        
+        String query = "SELECT * FROM post";
+        ArrayList <Post> postList = new ArrayList();
+        try{
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            
+            Post post;
+            while(resultSet.next()){
+                
+                File f = new File("c:\\uploadedFiles\\"+resultSet.getString("imageName"));
+                fs = new FileOutputStream(f);
+                Blob blob = resultSet.getBlob("image");
+                byte b[] = blob.getBytes(1, (int)blob.length());
+                fs.write(b);
+                
+                post = new Post();
+                post.setPostID(resultSet.getInt("postID"));
+                post.setImageName(resultSet.getString("imageName"));
+                post.setCaption(resultSet.getString("caption"));
+                post.setDescription(resultSet.getString("description"));
+                post.setLikes(resultSet.getInt("likes"));
+                
+                postList.add(post);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } catch (IOException ex) {
+            Logger.getLogger(PostDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return postList;
+    }
+    
     public static int addPost(Post post) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

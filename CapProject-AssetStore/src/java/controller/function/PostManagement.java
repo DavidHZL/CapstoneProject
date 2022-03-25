@@ -18,6 +18,17 @@ import model.Profile;
  * @author Dadvid
  */
 public class PostManagement {
+    public static ArrayList<Post> retrieveAllPosts(ArrayList<String> errorList) {
+        try {
+           ArrayList <Post> postList = PostDB.retrieveAllPosts();
+           
+           return postList;
+        } catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
+    
     public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) {
         if (validatePost(caption, description, imageName, errorList)){
             Post newPost = new Post();

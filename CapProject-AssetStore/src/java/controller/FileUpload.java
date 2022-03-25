@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import controller.function.PostManagement;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Post;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -33,7 +35,19 @@ public class FileUpload extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter responseOut = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Gson gson = new Gson();
+        
+        ArrayList<String> errorList = new ArrayList();
+        ArrayList<Post> postList;
+        
+        postList = PostManagement.retrieveAllPosts(errorList);
 
+        String postListJSON = gson.toJson(postList);
+
+        responseOut.println(postListJSON);
     }
 
     private boolean isMultipart;
@@ -88,11 +102,11 @@ public class FileUpload extends HttpServlet {
                     long sizeInBytes = fi.getSize();
                     String contentType = fi.getContentType();
                     boolean isInMemory = fi.isInMemory();
-                    
+
                     String directory = getServletContext().getInitParameter("file-upload");
-                    
+
                     file = new File(directory, fileName);
-                    
+
                     fi.write(file);
                 } else {
                     if (fi.getFieldName().contains("newCaption")) {

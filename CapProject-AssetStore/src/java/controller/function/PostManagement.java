@@ -5,17 +5,20 @@
  */
 package controller.function;
 
+import data.AccountProfileDB;
 import data.PostDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Account;
 import model.Post;
+import model.Profile;
 
 /**
  *
  * @author Dadvid
  */
 public class PostManagement {
-    public static Boolean storePost(String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) {
+    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) {
         if (validatePost(caption, description, imageName, errorList)){
             Post newPost = new Post();
             
@@ -27,6 +30,10 @@ public class PostManagement {
             try {
                 int postID = PostDB.addPost(newPost);
                 newPost.setPostID(postID);
+                
+                Profile currentProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
+                
+                PostDB.establishProfilePostLink(currentProfile, newPost, errorList);
                 return true;
             } catch (SQLException ex) {
                 errorList.add("Error Adding Post to the Database");

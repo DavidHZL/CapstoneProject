@@ -17,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -39,19 +41,15 @@ public class FileUpload extends HttpServlet {
     private int maxFileSize = 200000 * 1024;
     private int maxMemSize = 200000 * 1024;
     private File file;
-    
-    public void init() {
-        // Get the file location where it would be stored.
-        filePath = getServletContext().getInitParameter("file-upload");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account currentUser = (Account) session.getAttribute("currentUser");
         ArrayList<String> errorList = new ArrayList();
         Boolean isStored = false;
 
-        System.out.println("Hit servlet Successfully");
         // Check that we have a file upload request
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
@@ -106,8 +104,7 @@ public class FileUpload extends HttpServlet {
                     }
                 }
             }
-            System.out.println(caption + " " + description + " " + fileName + " " + tagList);
-            isStored = PostManagement.storePost(caption, description, fileName, tagList, errorList);
+            isStored = PostManagement.storePost(currentUser, caption, description, fileName, tagList, errorList);
 
             if (isStored = true) {
                 out.println(fileItems);

@@ -14,7 +14,7 @@
     </servlet>
     <servlet>
         <servlet-name>Profile</servlet-name>
-        <servlet-class>controller.Profile</servlet-class>
+        <servlet-class>controller.ProfileManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FileUpload</servlet-name>
@@ -49,7 +49,7 @@
         <description>Location to store uploaded files</description>
         <param-name>file-upload</param-name>
         <param-value>
-            c:\Users\Dadvid\source\repos\CapstoneProject\CapProject-AssetStore\web\resources\
+            c:\uploadedFiles
         </param-value>
     </context-param>
 </web-app>

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Post {
     private int postID;
-    private String imageLink;
+    private String imageName;
     private String caption;
     private String description;
     private int likes;
@@ -21,9 +21,9 @@ public class Post {
     
     public Post(){}
 
-    public Post(int postID, String imageLink, String caption, String description, int likes) {
+    public Post(int postID, String imageName, String caption, String description, int likes) {
         this.postID = postID;
-        this.imageLink = imageLink;
+        this.imageName = imageName;
         this.caption = caption;
         this.description = description;
         this.likes = likes;
@@ -37,12 +37,12 @@ public class Post {
         this.postID = postID;
     }
     
-    public String getImageLink() {
-        return imageLink;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getCaption() {

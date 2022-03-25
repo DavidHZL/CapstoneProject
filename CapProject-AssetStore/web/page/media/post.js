@@ -44,8 +44,7 @@ function showForm() {
                         </div>
                     </div><br><br>
 
-                    <form method="post" enctype="multipart/form-data" id="newPost">
-
+                    <form id="newPost" action="FileUpload" method="POST" enctype="multipart/form-data">
                         <div class="controlContainer">
                             <label for="newAssetLink">Asset: </label>
                             <input type="file" id="newFile" name="newFile">
@@ -58,6 +57,39 @@ function showForm() {
             </div>`
             );
     $("#addTag").click(addTag);
+
+    $("#submitPostBtn").click(function (event) {
+        event.preventDefault();
+        var form = $("#newPost")[0];
+
+        var data = new FormData(form);
+
+        data.append("newCaption", $("#newPostCaption").val());
+        data.append("newDescription", $("#newPostDescription").val());
+
+        for (var i = 0; i < tagList.length; i++) {
+            data.append("tag[]", tagList[i]);
+        }
+
+        $.ajax({
+            type:"POST",
+            enctype: "multipart/form-data",
+            url:"FileUpload",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: (result) => {
+                $("#mainModal").fadeOut(500);
+                console.log(result);
+            },
+            error: function (e) {
+                $("#result").text(e.responseText);
+                console.log("ERROR : ", e);
+            }
+        });
+    });
 
     $("#modalCloseButton").click(() => {
         $("#mainModal").fadeOut(500);
@@ -80,3 +112,4 @@ function addTag() {
 
     document.querySelector("#newPostTag").value = "";
 }
+

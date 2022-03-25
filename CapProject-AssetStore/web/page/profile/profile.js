@@ -10,7 +10,7 @@ function loadCurrentUser() {
     currentUser = "";
     $.ajax({
         type: "GET",
-        url: "Profile",
+        url: "ProfileManager",
         dataType: "JSON",
         success: (result) => {
             currentUser = result;

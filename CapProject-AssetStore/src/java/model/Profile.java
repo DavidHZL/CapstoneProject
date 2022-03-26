@@ -17,8 +17,8 @@ public class Profile {
     private String email;
     private String profileCaption;
     private int followerCount;
-    private ArrayList<Post> posts;
-    private Cart cart;
+    public ArrayList<Post> posts;
+    public Cart cart;
     
     public Profile() {}
 

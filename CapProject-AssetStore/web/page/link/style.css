@@ -195,7 +195,7 @@ main {
     padding: 5px;
 }
 
-.title {
+.title, .profileHeader{
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -5,11 +5,17 @@
  */
 package data;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Account;
+import model.Post;
 import model.Profile;
 
 /**
@@ -59,5 +65,55 @@ public class AccountProfileDB {
                 throw ex;
             }
         }
+    }
+    
+    public static ArrayList<Post> retrieveAllPostsByProfileID(int profileID) throws SQLException, IOException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        FileOutputStream fs = null;
+        
+        String query = "SELECT * FROM post Join profilepost "
+                + "ON post.postID = profilepost.postID "
+                + "WHERE profilepost.profileID = ?";
+        ArrayList <Post> postList = new ArrayList();
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, profileID);
+            resultSet = statement.executeQuery();
+            
+            Post post;
+            while(resultSet.next()){
+                
+                File f = new File("c:\\Users\\Dadvid\\source\\repos\\CapstoneProject\\CapProject-AssetStore\\web\\resources\\"+resultSet.getString("imageName"));
+                fs = new FileOutputStream(f);
+                Blob blob = resultSet.getBlob("image");
+                byte b[] = blob.getBytes(1, (int)blob.length());
+                fs.write(b);
+                
+                post = new Post();
+                post.setPostID(resultSet.getInt("postID"));
+                post.setImageName(resultSet.getString("imageName"));
+                post.setCaption(resultSet.getString("caption"));
+                post.setDescription(resultSet.getString("description"));
+                post.setLikes(resultSet.getInt("likes"));
+                
+                postList.add(post);
+            }
+        } catch (SQLException | IOException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return postList;
     }
 }

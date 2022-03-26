@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Post;
 
 /**
  *
@@ -34,16 +35,21 @@ public class ProfileManager extends HttpServlet {
         HttpSession session = request.getSession();
         Account currentUser = (Account) session.getAttribute("currentUser");
         ArrayList<String> errorList = new ArrayList();
-        
+
         Gson gson = new Gson();
         String errorListJSON;
-        
+
         try {
             model.Profile userProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
+
+            ArrayList<Post> userPostList = AccountProfileDB.retrieveAllPostsByProfileID(userProfile.getProfileID());
+
+            userProfile.posts = userPostList;
 
             String userProfileJSON = gson.toJson(userProfile);
 
             responseOut.println(userProfileJSON);
+
         } catch (SQLException ex) {
             errorList.add("Error Retrieving current user profile.");
             errorListJSON = gson.toJson(errorList);

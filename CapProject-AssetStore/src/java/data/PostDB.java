@@ -27,7 +27,7 @@ import model.Profile;
  * @author Dadvid
  */
 public class PostDB {
-    public static ArrayList<Post> retrieveAllPosts() throws SQLException {
+    public static ArrayList<Post> retrieveAllPosts() throws SQLException, IOException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null;
@@ -43,7 +43,7 @@ public class PostDB {
             Post post;
             while(resultSet.next()){
                 
-                File f = new File("c:\\uploadedFiles\\"+resultSet.getString("imageName"));
+                File f = new File("c:\\Users\\Dadvid\\source\\repos\\CapstoneProject\\CapProject-AssetStore\\web\\resources\\"+resultSet.getString("imageName"));
                 fs = new FileOutputStream(f);
                 Blob blob = resultSet.getBlob("image");
                 byte b[] = blob.getBytes(1, (int)blob.length());
@@ -58,10 +58,8 @@ public class PostDB {
                 
                 postList.add(post);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | IOException ex) {
             throw ex;
-        } catch (IOException ex) {
-            Logger.getLogger(PostDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (resultSet != null && statement != null) {
@@ -76,20 +74,19 @@ public class PostDB {
         return postList;
     }
     
-    public static int addPost(Post post) throws SQLException {
+    public static int addPost(Post post) throws SQLException, FileNotFoundException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        FileInputStream fs = null;
         int keyValue = 0;
 
         String query
                 = "Insert into post (image, imageName, caption, description, likes) "
                 + "values (?,?, ?, ?, ?)";
         try {
-            File f = new File("c:\\uploadedFiles\\"+post.getImageName());
-            fs = new FileInputStream(f);
+            File f = new File("c:\\Users\\Dadvid\\source\\repos\\CapstoneProject\\CapProject-AssetStore\\web\\resources\\"+post.getImageName());
+            FileInputStream fs = new FileInputStream(f);
             
             ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setBinaryStream(1,fs,(int)f.length());
@@ -105,10 +102,8 @@ public class PostDB {
                 rs.next();
                 keyValue = rs.getInt(1);
             }
-        } catch (SQLException sqlEx) {
+        } catch (SQLException | FileNotFoundException sqlEx) {
             throw sqlEx;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PostDB.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             try {
                 if (ps != null & rs != null) {

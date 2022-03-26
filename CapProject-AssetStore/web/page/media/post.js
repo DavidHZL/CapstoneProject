@@ -100,6 +100,22 @@ function showForm() {
     $("#mainModal").fadeIn(200);
 }
 
+function displayPosts(postList) {
+    $("#allPostContainer").html("");
+
+    postList.forEach(element => (
+                $("#allPostContainer").append(
+                `<div class="card-post">
+                <h3 class="postCaption">${element.caption}</h3>
+                <image src="resources/${element.imageName}" class="img-post" alt="A post from a user"/>
+                <p class="description-post">${element.description}</p>
+                <div class="tags-post">
+                    <p class="tag">tag Example</p>
+                </div>
+            </div>`)
+    ));
+}
+
 function addTag() {
     var tagContainer = document.querySelector("#tagContainer");
     var newTag = document.querySelector("#newPostTag").value;
@@ -124,7 +140,7 @@ function retrievePosts() {
         success: (result) => {
             postList = result;
             console.log(postList);
-//            displayPosts(postList);
+            displayPosts(postList);
         },
         error: function (jqXHR, ex) {
             console.log(jqXHR);

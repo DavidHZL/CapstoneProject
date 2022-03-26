@@ -7,6 +7,8 @@ package controller.function;
 
 import data.AccountProfileDB;
 import data.PostDB;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Account;
@@ -18,18 +20,18 @@ import model.Profile;
  * @author Dadvid
  */
 public class PostManagement {
-    public static ArrayList<Post> retrieveAllPosts(ArrayList<String> errorList) {
+    public static ArrayList<Post> retrieveAllPosts(ArrayList<String> errorList) throws IOException {
         try {
            ArrayList <Post> postList = PostDB.retrieveAllPosts();
            
            return postList;
-        } catch (SQLException ex) {
+        } catch (SQLException | IOException ex) {
             errorList.add(ex.getMessage());
             return null;
         }
     }
     
-    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) {
+    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) throws FileNotFoundException {
         if (validatePost(caption, description, imageName, errorList)){
             Post newPost = new Post();
             
@@ -46,8 +48,8 @@ public class PostManagement {
                 
                 PostDB.establishProfilePostLink(currentProfile, newPost, errorList);
                 return true;
-            } catch (SQLException ex) {
-                errorList.add("Error Adding Post to the Database");
+            } catch (SQLException | FileNotFoundException ex) {
+                errorList.add(ex.getMessage());
                 return false;
             }
         } else {

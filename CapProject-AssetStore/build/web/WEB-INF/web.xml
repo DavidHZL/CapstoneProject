@@ -34,7 +34,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
-        <url-pattern>/Profile</url-pattern>
+        <url-pattern>/ProfileManager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FileUpload</servlet-name>
@@ -49,7 +49,7 @@
         <description>Location to store uploaded files</description>
         <param-name>file-upload</param-name>
         <param-value>
-            c:\uploadedFiles
+            c:\Users\Dadvid\source\repos\CapstoneProject\CapProject-AssetStore\web\resources\
         </param-value>
     </context-param>
 </web-app>

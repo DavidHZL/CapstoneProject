@@ -3,6 +3,13 @@
 var currentUser;
 
 $(document).ready(() => {
+
+    $(window).click(function (e) {
+        if (e.target.id === "mainModal") {
+            $("#mainModal").fadeOut(100);
+        }
+    });
+
     loadCurrentUser();
 });
 
@@ -24,8 +31,8 @@ function loadCurrentUser() {
 
 function displayProfile() {
     $("#profileContent").empty();
-    
-    var profileContentHTML = 
+
+    var profileContentHTML =
             `
             <h1 class="profileHeader">
                 <div class="profileName">${currentUser.email}</div>
@@ -34,26 +41,28 @@ function displayProfile() {
             </h1>
 
             `;
-    
-    if (typeof currentUser.profileCaption !== "undefined"){
-        profileContentHTML += 
-            `
+
+    if (typeof currentUser.profileCaption !== "undefined") {
+        profileContentHTML +=
+                `
             <div class="profileCaption">
                     <p class="profileCaption">${currentUser.profileCaption}</p>
             </div>
             `;
     } else {
-        profileContentHTML += 
-            `
+        profileContentHTML +=
+                `
             <div class="profileCaption">
                     <p class="profileCaption">Click here to add a caption!</p>
-                    <button class="styledBtn" id="addCaptionButton">Add Caption</button>
+                    <input type="button" class="styledBtn" id="addCaptionButton" value="Add Caption" />
             </div>
             `;
     }
-    
+
+
+
     currentUser.posts.forEach((post) => {
-       profileContentHTML += 
+        profileContentHTML +=
             `
             <div class="card-post">
                 <h3 class="postCaption">${post.caption}</h3>
@@ -65,7 +74,33 @@ function displayProfile() {
             </div>
             `;
     });
-    
+
     $("#profileContent").append(profileContentHTML);
-    
+
+        $("#addCaptionButton").click(function () {
+            $("#mainModal").html(
+                    `<div id="modalBox" class="modalContent">
+                        <span id="modalCloseButton" class="closeButton">&times;</span>
+                        <div id="modalContent">
+                            <h1 class="modalTitle">Add a caption for your Profile!</h1>
+
+                            <div class="controlContainer">
+                                <textarea id="newProfileCaption" class="newCaptionTextArea">
+                                    Add a Caption here!
+                                </textarea>
+                            </div><br><br>
+
+                            <div class="controlContainer">
+                                <input type="button" id="createCaptionBtn" class="styledBtn" value="Add Caption">
+                            </div>
+                        </div>
+                    </div>`
+                    );
+
+            $("#modalCloseButton").click(() => {
+                $("#mainModal").fadeOut(500);
+            });
+
+            $("#mainModal").fadeIn(200);
+        });
 }

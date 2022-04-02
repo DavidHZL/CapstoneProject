@@ -11,7 +11,9 @@
         <div id="profileContent">
             
         </div>
+        
+        <div id="mainModal" class="modalBackground">
+        </div>
     </div>
-
 </main>
 <jsp:include page="/page/link/footer.jsp"/>

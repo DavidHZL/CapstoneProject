@@ -46,14 +46,14 @@ function displayProfile() {
         profileContentHTML +=
                 `
             <div class="profileCaption">
-                    <p class="profileCaption">${currentUser.profileCaption}</p>
+                    <p >${currentUser.profileCaption}</p>
             </div>
             `;
     } else {
         profileContentHTML +=
                 `
             <div class="profileCaption">
-                    <p class="profileCaption">Click here to add a caption!</p>
+                    <p>Click here to add a caption!</p>
                     <input type="button" class="styledBtn" id="addCaptionButton" value="Add Caption" />
             </div>
             `;
@@ -91,11 +91,28 @@ function displayProfile() {
                             </div><br><br>
 
                             <div class="controlContainer">
-                                <input type="button" id="createCaptionBtn" class="styledBtn" value="Add Caption">
+                                <input type="button" id="createCaptionBtn" class="styledBtn" data-profileid="${currentUser.profileID}" value="Add Caption">
                             </div>
                         </div>
                     </div>`
                     );
+            
+            $("#createCaptionBtn").click(function() {
+                $.ajax({
+                   type:"Post",
+                   url:"CaptionManager",
+                   data : {"newCaption" : $("#newProfileCaption").val(),
+                            "profileID" : $(this).attr("data-profileid")},
+                   dataType: "JSON",
+                    success: (result) => {
+                        $("#mainModal").fadeOut(500);
+                        loadCurrentUser();
+                    },
+                    error: function (jqXHR, ex) {
+                        console.log(jqXHR);
+                    }
+                });
+            });
 
             $("#modalCloseButton").click(() => {
                 $("#mainModal").fadeOut(500);

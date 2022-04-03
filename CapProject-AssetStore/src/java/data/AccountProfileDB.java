@@ -6,6 +6,7 @@
 package data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Blob;
@@ -115,5 +116,35 @@ public class AccountProfileDB {
             }
         }
         return postList;
+    }
+    
+    public static void addProfileCaption(String newCaption, int profileID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String query = "Update profile Set profileCaption = ? "
+                + "Where profileID = ?";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, newCaption);
+            ps.setInt(2, profileID);
+            
+            ps.executeUpdate();
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
     }
 }

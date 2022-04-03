@@ -20,6 +20,10 @@
         <servlet-name>FileUpload</servlet-name>
         <servlet-class>controller.FileUpload</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CaptionManager</servlet-name>
+        <servlet-class>controller.CaptionManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>FileUpload</servlet-name>
         <url-pattern>/FileUpload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CaptionManager</servlet-name>
+        <url-pattern>/CaptionManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

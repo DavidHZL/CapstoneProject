@@ -24,6 +24,10 @@
         <servlet-name>CaptionManager</servlet-name>
         <servlet-class>controller.CaptionManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditPost</servlet-name>
+        <servlet-class>controller.EditPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>CaptionManager</servlet-name>
         <url-pattern>/CaptionManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditPost</servlet-name>
+        <url-pattern>/EditPost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

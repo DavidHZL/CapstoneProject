@@ -65,7 +65,11 @@ function displayProfile() {
         profileContentHTML +=
             `
             <div class="card-post">
-                <h3 class="postCaption">${post.caption}</h3>
+                <div class="profilePostHeader">
+                    <span id="editPost${post.postID}"><img src="resources/editIcon.png" class="editIcon" alt="editPostIcon"></span>
+                    <h3 class="postCaption">${post.caption}</h3>
+                    <span id="deletePost${post.postID}"><img src="resources/deleteIcon.png" class="deleteIcon" alt="deletePostIcon"></span>
+                </div>
                 <image src="resources/${post.imageName}" class="img-post" alt="A post from a user"/>
                 <p class="description-post">${post.description}</p>
                 <div class="tags-post">
@@ -77,7 +81,69 @@ function displayProfile() {
 
     $("#profileContent").append(profileContentHTML);
 
-        $("#addCaptionButton").click(function () {
+    displayAddCaptionForm();
+    
+    displayEditPostForm();
+}
+
+function displayEditPostForm(){
+    
+    currentUser.posts.forEach( (post) => {
+        $("#editPost" + post.postID).click(function () {
+            $("#mainModal").html(
+                    `<div id="modalBox" class="modalContent">
+                        <span id="modalCloseButton" class="closeButton">&times;</span>
+                        <div id="modalContent">
+                        <h1 class="modalTitle">Edit A Post</h1>
+            
+                        <div class="controlContainer">
+                            <label for="editPostCaption">Caption: </label>
+                            <input type="text" id="editPostCaption" name="editPostCaption" value="${post.caption}">
+                        </div><br><br>
+
+                        <div class="controlContainer">
+                            <label for="editPostDescription">Description: </label>
+                            <input type="text" id="editPostDescription" name="editPostDescription" value="${post.description}">
+                        </div><br><br>
+
+                            <div class="controlContainer">
+                                <input type="button" id="editPostBtn" class="styledBtn" data-postid="${post.postID}" value="Edit Post">
+                            </div>
+                        </div>
+                    </div>`
+            );
+    
+            $("#editPostBtn").click(() => {
+                $.ajax({
+                    type: "POST",
+                    url: "EditPost",
+                    data: {"postID" : $(this).attr("data-postid"),
+                            "editedPostCaption" : $("#editPostCaption").val(),
+                            "editedPostDescription" : $("#editPostDescription").val()},
+                    dataType: "JSON",
+                    success: (result) => {
+                        $("#mainModal").fadeOut(500);
+                    },
+                    error: function (jqXHR, ex) {
+                        console.log(jqXHR);
+                    }
+                });
+            });
+    
+            $("#modalCloseButton").click(() => {
+                $("#mainModal").fadeOut(500);
+                loadCurrentUser();
+            });
+
+            $("#mainModal").fadeIn(200);
+        });
+        
+    });
+    
+}
+
+function displayAddCaptionForm() {
+    $("#addCaptionButton").click(function () {
             $("#mainModal").html(
                     `<div id="modalBox" class="modalContent">
                         <span id="modalCloseButton" class="closeButton">&times;</span>
@@ -95,7 +161,7 @@ function displayProfile() {
                             </div>
                         </div>
                     </div>`
-                    );
+            );
             
             $("#createCaptionBtn").click(function() {
                 $.ajax({

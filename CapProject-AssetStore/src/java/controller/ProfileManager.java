@@ -6,6 +6,8 @@
 package controller;
 
 import com.google.gson.Gson;
+import controller.function.PostManagement;
+import controller.function.ProfileManagement;
 import data.AccountProfileDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,9 +42,8 @@ public class ProfileManager extends HttpServlet {
         String errorListJSON;
 
         try {
-            model.Profile userProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
-
-            ArrayList<Post> userPostList = AccountProfileDB.retrieveAllPostsByProfileID(userProfile.getProfileID());
+            model.Profile userProfile = ProfileManagement.retrieveCurrentProfile(currentUser, errorList);
+            ArrayList<Post> userPostList = PostManagement.retrieveAllPostsByProfileID(userProfile, errorList);
 
             userProfile.posts = userPostList;
 

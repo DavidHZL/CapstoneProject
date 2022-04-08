@@ -20,21 +20,33 @@ import model.Profile;
  * @author Dadvid
  */
 public class PostManagement {
+
     public static ArrayList<Post> retrieveAllPosts(ArrayList<String> errorList) throws IOException {
         try {
-           ArrayList <Post> postList = PostDB.retrieveAllPosts();
-           
-           return postList;
+            ArrayList<Post> postList = PostDB.retrieveAllPosts();
+
+            return postList;
         } catch (SQLException | IOException ex) {
             errorList.add(ex.getMessage());
             return null;
         }
     }
     
-    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) throws FileNotFoundException {
-        if (validatePost(caption, description, imageName, errorList)){
-            Post newPost = new Post();
+    public static ArrayList<Post> retrieveAllPostsByProfileID(Profile userProfile, ArrayList<String> errorList) throws IOException{
+        try {
+            ArrayList<Post> userPostList = AccountProfileDB.retrieveAllPostsByProfileID(userProfile.getProfileID());
             
+            return userPostList;
+        } catch(SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
+
+    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) throws FileNotFoundException {
+        if (validatePost(caption, description, imageName, errorList)) {
+            Post newPost = new Post();
+
             newPost.setCaption(caption);
             newPost.setDescription(description);
             newPost.setImageName(imageName);
@@ -43,9 +55,9 @@ public class PostManagement {
             try {
                 int postID = PostDB.addPost(newPost);
                 newPost.setPostID(postID);
-                
+
                 Profile currentProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
-                
+
                 PostDB.establishProfilePostLink(currentProfile, newPost, errorList);
                 return true;
             } catch (SQLException | FileNotFoundException ex) {
@@ -54,14 +66,35 @@ public class PostManagement {
             }
         } else {
             return false;
-        }  
+        }
     }
     
-        protected static Boolean validatePost(String caption, String description, String imageName, ArrayList<String> errorList){
-        
+    public static Profile editPost(Account currentUser, int postID, String caption, String description, ArrayList<String> errorList) throws IOException{
+        if(validateEdit(caption, description, errorList)) {
+            try {
+                PostDB.updatePostCaption(postID, caption);
+                PostDB.updatePostDescription(postID, description);
+                
+                model.Profile userProfile = ProfileManagement.retrieveCurrentProfile(currentUser, errorList);
+                ArrayList<Post> userPostsList = retrieveAllPostsByProfileID(userProfile, errorList);
+                
+                userProfile.posts = userPostsList;
+                
+                return userProfile;
+            } catch (SQLException | IOException ex){
+                errorList.add(ex.getMessage());
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    protected static Boolean validatePost(String caption, String description, String imageName, ArrayList<String> errorList) {
+
         Boolean isValid = true;
-        
-        if (caption.isEmpty() || caption.length() > 75 ){
+
+        if (caption.isEmpty() || caption.length() > 75) {
             errorList.add("Please enter a caption that is less than 75 characters");
             isValid = false;
         }
@@ -73,7 +106,23 @@ public class PostManagement {
             errorList.add("Please select an image to upload");
             isValid = false;
         }
-        
+
+        return isValid;
+    }
+    
+    protected static Boolean validateEdit(String caption, String description, ArrayList<String> errorList) {
+
+        Boolean isValid = true;
+
+        if (caption.isEmpty() || caption.length() > 75) {
+            errorList.add("Please enter a caption that is less than 75 characters");
+            isValid = false;
+        }
+        if (description.isEmpty() || description.length() > 255) {
+            errorList.add("Please enter a description that is less than 255 characters");
+            isValid = false;
+        }
+
         return isValid;
     }
 }

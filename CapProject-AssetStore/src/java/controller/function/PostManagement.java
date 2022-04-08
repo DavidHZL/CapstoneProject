@@ -90,6 +90,22 @@ public class PostManagement {
         }
     }
     
+    public static Profile deletePost(Account currentUser, int postID, ArrayList<String> errorList) throws SQLException, IOException {
+        try {
+            PostDB.deletePostByID(postID);
+            
+            model.Profile userProfile = ProfileManagement.retrieveCurrentProfile(currentUser, errorList);
+            ArrayList<Post> userPostsList = retrieveAllPostsByProfileID(userProfile, errorList);
+                
+            userProfile.posts = userPostsList;
+                
+            return userProfile;
+        } catch(SQLException | IOException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
+    
     protected static Boolean validatePost(String caption, String description, String imageName, ArrayList<String> errorList) {
 
         Boolean isValid = true;

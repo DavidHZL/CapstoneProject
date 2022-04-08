@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import controller.function.PostManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,32 @@ public class EditPost extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Delete Post
+        PrintWriter responseOut = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        ArrayList<String> errorList = new ArrayList();
+        Gson gson = new Gson();
+        
+        HttpSession session = request.getSession();
+        Account currentUser = (Account) session.getAttribute("currentUser");
+        
+        int postID = Integer.parseInt(request.getParameter("postID"));
+        
+        try {
+            model.Profile editedProfile = PostManagement.deletePost(currentUser, postID, errorList);
+            
+            String userProfileJSON = gson.toJson(editedProfile);
+
+            responseOut.println(userProfileJSON);
+        } catch(SQLException ex) {
+            errorList.add(ex.getMessage());
+            String errorListJSON = gson.toJson(errorList);
+            responseOut.println(errorListJSON);
+            
+        }
+        
+        
     }
 
     @Override

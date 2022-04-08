@@ -206,4 +206,32 @@ public class PostDB {
             }
         }
     }
+    
+    public static void deletePostByID(int postID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        
+        String query = "DELETE FROM post WHERE postID = ?";
+        
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, postID);
+
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
 }

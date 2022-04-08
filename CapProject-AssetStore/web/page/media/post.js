@@ -104,13 +104,23 @@ function displayPosts(postList) {
     $("#allPostContainer").html("");
 
     postList.forEach(element => (
-                $("#allPostContainer").append(
-                `<div class="card-post">
-                <h3 class="postCaption">${element.caption}</h3>
-                <image src="resources/${element.imageName}" class="img-post" alt="A post from a user"/>
-                <p class="description-post">${element.description}</p>
-                <div class="tags-post">
-                    <p class="tag">tag Example</p>
+        $("#allPostContainer").append(
+           `<div class="card-post">
+                <div class="post-info">
+                    <div class="post-main-info">
+                        <h3 class="postCaption">${element.caption}</h3>
+                        <p class="description-post">${element.description}</p>
+                    </div>
+                    <div class="tags-post">
+                        <p class="tag">tag</p>
+                        <p class="tag">tag</p>
+                    </div>
+                    <div class="post-controls">
+                        <p>Like</p>
+                    </div>
+                </div>
+                <div class="post-img-container">
+                    <image src="resources/${element.imageName}" class="img-post" alt="A post from a user"/>
                 </div>
             </div>`)
     ));

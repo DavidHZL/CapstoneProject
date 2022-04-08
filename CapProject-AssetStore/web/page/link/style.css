@@ -171,33 +171,70 @@ main {
 }
 
 .card-post {
-    width: 600px;
+    max-width: 1000px;
+    min-width: 850px;
+    min-height: 250px;
     background-color: white;
     border: 1px outset black;
     box-shadow: 2px 2px 2px black;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
     margin: 0 auto;
     padding: 15px;
-    gap: 10px;
     text-align: center;
     border-radius: 15px;
 }
 
-.profilePostHeader {
+.post-info{
+    grid-area: 1/1/2/2;
+    display: grid;
+    grid-template-rows: 1fr 40px 40px;
+    text-align: center;
+}
+
+.post-main-info{
+    grid-area: 1/1/2/2;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.postCaption {
+    font-size: 2rem;
+}
+
+.description-post {
+    font-size: 1.25rem;
+}
+
+.post-img-container {
+    display:grid;
+    margin: 0 auto;
+    align-content: center;
+    max-width: 400px;
 }
 
 .img-post{
-    max-width: 40%;
-    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
+}
+
+.post-controls {
+    display: flex;
+    flex-direction: row;
+    align-items:flex-end;
+    justify-content:center;
 }
 
 .tags-post{
     display: flex;
     gap: 10px;
+    justify-content: center;
+    padding: 10px;
 }
 
 .tag .newTag {
@@ -215,6 +252,12 @@ main {
     align-items: center;
     border-bottom: 5px solid #54BAB9;
     margin-bottom: 10px;
+}
+
+.profilePostHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .profileCaption {

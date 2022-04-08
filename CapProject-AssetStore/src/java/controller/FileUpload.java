@@ -52,8 +52,8 @@ public class FileUpload extends HttpServlet {
 
     private boolean isMultipart;
     private String filePath;
-    private int maxFileSize = 200000 * 1024;
-    private int maxMemSize = 200000 * 1024;
+    private long maxFileSize = Long.MAX_VALUE;
+    private int maxMemSize = Integer.MAX_VALUE;
     private File file;
 
     @Override

@@ -210,6 +210,10 @@ main {
     font-size: 1.25rem;
 }
 
+.postLikes {
+    font-size: 1.25rem;
+}
+
 .post-img-container {
     display:grid;
     margin: 0 auto;
@@ -226,13 +230,12 @@ main {
 .post-controls {
     display: flex;
     flex-direction: row;
-    align-items:flex-end;
-    justify-content:center;
+    align-items:center;
 }
 
 .tags-post{
     display: flex;
-    gap: 10px;
+    gap: 15px;
     justify-content: center;
     padding: 10px;
 }
@@ -296,15 +299,19 @@ main {
     background-color: #F7ECDE;
 }
 
-.editIcon, .deleteIcon {
+.editIcon, .deleteIcon, .likeIcon {
     padding: 5px;
-    width: 50%;
+    width: 40%;
     border-radius: 5px;
 }
 
 .editIcon:hover,
 .deleteIcon:hover{
     background-color: #54BAB9;
+}
+
+.likeIcon:hover {
+    background-color: lightpink;
 }
 
 footer {

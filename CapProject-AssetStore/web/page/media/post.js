@@ -103,7 +103,7 @@ function showForm() {
 function displayPosts(postList) {
     $("#allPostContainer").html("");
 
-    postList.forEach(element => (
+    postList.forEach((element) => {
         $("#allPostContainer").append(
            `<div class="card-post">
                 <div class="post-info">
@@ -116,14 +116,18 @@ function displayPosts(postList) {
                         <p class="tag">tag</p>
                     </div>
                     <div class="post-controls">
-                        <p>Like</p>
+                        <div id="likeBtn${element.postID}" data-postID="${element.postID}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>
+                        <p id="likesOnPost${element.postID}" class="postLikes">${element.likes}</p>
                     </div>
                 </div>
                 <div class="post-img-container">
                     <image src="resources/${element.imageName}" class="img-post" alt="A post from a user"/>
                 </div>
-            </div>`)
-    ));
+            </div>`);
+        
+        $("#likeBtn"+element.postID).click(likePost);
+    });
+    
 }
 
 function addTag() {
@@ -139,6 +143,24 @@ function addTag() {
     tagContainer.append(li);
 
     document.querySelector("#newPostTag").value = "";
+}
+
+function likePost() {
+    var currentPostID = $(this).attr("data-postid");
+    var postLikes = $("#likesOnPost"+currentPostID).val(); //error Retrieving value, is null
+    
+    if (postLikes === null) {
+        postLikes = 0;
+    }
+    console.log(postLikes);
+    ajaxCall("LikeManagement",
+        {"postID" : currentPostID,
+         "likes" : postLikes},
+         "POST", (result) => {
+             var newPostLikes = result;
+             $("#postLikes"+currentPostID).val(newPostLikes);
+         }
+    );
 }
 
 function retrievePosts() {
@@ -157,4 +179,17 @@ function retrievePosts() {
         }
     });
 }
+
+var ajaxCall = (url, data, type, callback) => {
+    $.ajax({
+        type: type,
+        url: url,
+        data: data,
+        dataType: "JSON",
+        success: callback,
+        error: function (jqXHR, ex) {
+            console.log(jqXHR);
+        }
+    });
+};
 

@@ -28,6 +28,10 @@
         <servlet-name>EditPost</servlet-name>
         <servlet-class>controller.EditPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LikeManagement</servlet-name>
+        <servlet-class>controller.LikeManagement</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EditPost</servlet-name>
         <url-pattern>/EditPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikeManagement</servlet-name>
+        <url-pattern>/LikeManagement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

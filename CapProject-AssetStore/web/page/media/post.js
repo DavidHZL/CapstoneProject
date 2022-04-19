@@ -116,7 +116,7 @@ function displayPosts(postList) {
                         <p class="tag">tag</p>
                     </div>
                     <div class="post-controls">
-                        <div id="likeBtn${element.postID}" data-postID="${element.postID}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>
+                        <div id="likeBtn${element.postID}" data-postid="${element.postID}" data-currentlikes="${element.likes}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>
                         <p id="likesOnPost${element.postID}" class="postLikes">${element.likes}</p>
                     </div>
                 </div>
@@ -147,18 +147,22 @@ function addTag() {
 
 function likePost() {
     var currentPostID = $(this).attr("data-postid");
-    var postLikes = $("#likesOnPost"+currentPostID).val(); //error Retrieving value, is null
+    var postLikes = $(this).attr("data-currentlikes"); 
     
     if (postLikes === null) {
         postLikes = 0;
     }
     console.log(postLikes);
+    console.log(currentPostID);;
     ajaxCall("LikeManagement",
         {"postID" : currentPostID,
          "likes" : postLikes},
          "POST", (result) => {
+             
              var newPostLikes = result;
-             $("#postLikes"+currentPostID).val(newPostLikes);
+             $("#likesOnPost"+currentPostID).html(newPostLikes);
+             $("#likeBtn"+currentPostID).attr("disabled", true);
+             // add a class to make the button stay light pink when clicked.
          }
     );
 }

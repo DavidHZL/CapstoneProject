@@ -6,6 +6,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import controller.function.PostManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -39,7 +40,12 @@ public class LikeManagement extends HttpServlet {
         int postID = Integer.parseInt(request.getParameter("postID"));
         int likes = Integer.parseInt(request.getParameter("likes"));
         
-        errorList.add("test");
+        likes = PostManagement.addLike(postID, likes, errorList);
+        
+        String likesJSON = gson.toJson(likes);
+        
+        responseOut.println(likesJSON);
+        
     }
 
     @Override

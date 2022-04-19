@@ -234,4 +234,33 @@ public class PostDB {
             }
         }
     }
+    
+    public static void addLikeToPost(int postID, int likes) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        
+        String query = "UPDATE post SET likes = ? WHERE postID = ?";
+        
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, likes);            
+            statement.setInt(2, postID);
+
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
 }

@@ -141,4 +141,15 @@ public class PostManagement {
 
         return isValid;
     }
+    
+    public static int addLike(int postID, int likes, ArrayList<String> errorList) {
+        likes += 1;
+        try {
+            PostDB.addLikeToPost(postID, likes);
+        } catch(SQLException ex) {
+            errorList.add(ex.getMessage());
+        }
+        
+        return likes;
+    }
 }

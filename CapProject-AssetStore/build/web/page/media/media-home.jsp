@@ -11,7 +11,12 @@
 
     <div class="mainContent">
         <div class="title">
-            <h1>Browse All Media Here!</h1>
+            <div class="searchBar-wrapper">
+                <input type="text" id="txtSearchObject" class="searchBar" placeholder="Search For Posts"/>
+            
+                <input type="button" id="seacrchObjectBtn" class="styledBtn" value="Search"/>
+            </div>
+            
 
             <input type="button" id="newPostBtn" class="styledBtn" value="New Post" />
         </div>

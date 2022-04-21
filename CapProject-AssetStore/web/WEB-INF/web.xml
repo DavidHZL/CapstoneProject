@@ -32,6 +32,10 @@
         <servlet-name>LikeManagement</servlet-name>
         <servlet-class>controller.LikeManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchPost</servlet-name>
+        <servlet-class>controller.SearchPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>LikeManagement</servlet-name>
         <url-pattern>/LikeManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPost</servlet-name>
+        <url-pattern>/SearchPost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

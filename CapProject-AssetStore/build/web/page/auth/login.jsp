@@ -9,7 +9,7 @@
     <div class="mainContent">
         <h1 class="title">Login page</h1>
 
-        <form action="Authorize" method="POST">
+        <form action="Authorize" method="POST" class="loginFrm">
             <label for="username">Username: </label>
             <input type="text" name="username">
 

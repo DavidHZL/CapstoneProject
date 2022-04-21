@@ -5,6 +5,10 @@ var postList;
 
 $(document).ready(() => {
     $("#newPostBtn").click(showForm);
+    
+    $("#searchObjectBtn").click(searchForPosts);
+    
+    $("#clearAllBtn").click(reloadPosts);
 
     $(window).click(function (e) {
         if (e.target.id === "mainModal") {
@@ -112,8 +116,7 @@ function displayPosts(postList) {
                         <p class="description-post">${element.description}</p>
                     </div>
                     <div class="tags-post">
-                        <p class="tag">tag</p>
-                        <p class="tag">tag</p>
+                        <p class="profileReference">tag</p>
                     </div>
                     <div class="post-controls">
                         <div id="likeBtn${element.postID}" data-postid="${element.postID}" data-currentlikes="${element.likes}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>
@@ -128,6 +131,12 @@ function displayPosts(postList) {
         $("#likeBtn"+element.postID).click(likePost);
     });
     
+}
+
+function reloadPosts() {
+    $("#clearAllBtn").addClass("hidden");
+    
+    retrievePosts();
 }
 
 function addTag() {
@@ -182,6 +191,21 @@ function retrievePosts() {
             console.log(jqXHR);
         }
     });
+}
+
+function searchForPosts(){
+    console.log("Currently Searching");
+    ajaxCall("SearchPost", 
+        {"searchCriteria" : $("#txtSearchObject").val()},
+        "GET", (result) => {
+            $("#txtSearchObject").val("");
+            $("#clearAllBtn").removeClass("hidden");
+            
+            var retrievedPostList = result;
+            
+            displayPosts(retrievedPostList);
+        }
+    );
 }
 
 var ajaxCall = (url, data, type, callback) => {

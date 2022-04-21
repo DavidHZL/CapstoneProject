@@ -9,7 +9,7 @@
     <div class="mainContent">
         <h1 class="title">Register Here</h1>
 
-        <form action="Register" method="Post">
+        <form action="Register" method="Post" class="registerFrm">
             <label for="email">Email: </label>
             <input type="email" name="email"><br><br>
 

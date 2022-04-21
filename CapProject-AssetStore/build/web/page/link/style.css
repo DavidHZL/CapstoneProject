@@ -74,6 +74,11 @@ main {
     padding: 15px;
 }
 
+.loginFrm, .registerFrm {
+    color: white;
+    font-size: 1.75rem;
+}
+
 
 .modalTitle {
     text-align: center;
@@ -119,6 +124,10 @@ main {
 }
 
 .newPostForm.hidden{
+    display: none;
+}
+
+.styledBtn.hidden {
     display: none;
 }
 

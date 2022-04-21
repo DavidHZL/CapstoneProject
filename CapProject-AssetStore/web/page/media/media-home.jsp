@@ -14,7 +14,9 @@
             <div class="searchBar-wrapper">
                 <input type="text" id="txtSearchObject" class="searchBar" placeholder="Search For Posts"/>
             
-                <input type="button" id="seacrchObjectBtn" class="styledBtn" value="Search"/>
+                <input type="button" id="searchObjectBtn" class="styledBtn" value="Search"/>
+                
+                <input type="button" id="clearAllBtn" class="styledBtn hidden" value="Clear All"/>
             </div>
             
 

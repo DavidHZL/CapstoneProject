@@ -18,6 +18,7 @@ public class Post {
     private String description;
     private int likes;
     public ArrayList<String> tags;
+    //Add create by to model, javascript, and servlet
     
     public Post(){}
 

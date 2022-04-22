@@ -43,7 +43,7 @@ public class PostManagement {
         }
     }
 
-    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> tagList, ArrayList<String> errorList) throws FileNotFoundException {
+    public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> errorList) throws FileNotFoundException {
         if (validatePost(caption, description, imageName, errorList)) {
             Post newPost = new Post();
 
@@ -51,7 +51,8 @@ public class PostManagement {
             newPost.setDescription(description);
             newPost.setImageName(imageName);
             newPost.setLikes(0);
-            newPost.tags = tagList;
+            newPost.setCreatorID(currentUser.getAccountID());
+            newPost.setCreatorUserName(currentUser.getUsername());
             try {
                 int postID = PostDB.addPost(newPost);
                 newPost.setPostID(postID);

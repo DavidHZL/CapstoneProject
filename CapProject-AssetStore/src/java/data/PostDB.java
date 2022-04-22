@@ -56,6 +56,8 @@ public class PostDB {
                 post.setCaption(resultSet.getString("caption"));
                 post.setDescription(resultSet.getString("description"));
                 post.setLikes(resultSet.getInt("likes"));
+                post.setCreatorID(resultSet.getInt("creatorID"));
+                post.setCreatorUserName(resultSet.getString("creatorUserName"));
 
                 postList.add(post);
             }
@@ -83,8 +85,8 @@ public class PostDB {
         int keyValue = 0;
 
         String query
-                = "Insert into post (image, imageName, caption, description, likes) "
-                + "values (?,?, ?, ?, ?)";
+                = "Insert into post (image, imageName, caption, description, likes, creatorID, creatorUserName) "
+                + "values (?,?, ?, ?, ?, ?, ?)";
         try {
             File f = new File("c:\\Users\\Dadvid\\source\\repos\\CapstoneProject\\CapProject-AssetStore\\web\\resources\\" + post.getImageName());
             FileInputStream fs = new FileInputStream(f);
@@ -95,6 +97,8 @@ public class PostDB {
             ps.setString(3, post.getCaption());
             ps.setString(4, post.getDescription());
             ps.setInt(5, 0);
+            ps.setInt(6, post.getCreatorID());
+            ps.setString(7, post.getCreatorUserName());
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();

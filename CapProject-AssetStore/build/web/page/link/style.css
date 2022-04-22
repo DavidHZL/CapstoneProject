@@ -234,18 +234,12 @@ main {
     align-items:center;
 }
 
-.tags-post{
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    padding: 10px;
-}
-
-.tag .newTag {
-    font-size: 0.8rem;
-    background-color: lightgrey;
-    border-radius: 5px;
-    padding: 5px;
+.profileReference{
+    font-size: 1.5rem;
+    background-color: #D82148;
+    border-radius: 10px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .title, .profileHeader{

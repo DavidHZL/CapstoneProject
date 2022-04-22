@@ -36,20 +36,6 @@ function showForm() {
                         <input type="text" id="newPostDescription" name="newPostDescription">
                     </div><br><br>
 
-                    <div class="controlContainer">
-                        <div>
-                            <label for="newPostTag">Tags: </label>
-                            <input type="text" id="newPostTag" name="newPostTag">
-                            <ul class="tagContainer" id="tagContainer">
-
-                            </ul>
-                        </div>
-                        <div>
-                            <input type="button" id="addTag" class="styledBtn" value="Add Tag"><br>
-                            
-                        </div>
-                    </div><br><br>
-
                     <form id="newPost" action="FileUpload" method="POST" enctype="multipart/form-data">
                         <div class="controlContainer">
                             <label for="newAssetLink">Asset: </label>
@@ -72,10 +58,6 @@ function showForm() {
 
         data.append("newCaption", $("#newPostCaption").val());
         data.append("newDescription", $("#newPostDescription").val());
-
-        for (var i = 0; i < tagList.length; i++) {
-            data.append("tag[]", tagList[i]);
-        }
 
         $.ajax({
             type:"POST",
@@ -115,8 +97,8 @@ function displayPosts(postList) {
                         <h3 class="postCaption">${element.caption}</h3>
                         <p class="description-post">${element.description}</p>
                     </div>
-                    <div class="tags-post">
-                        <p class="profileReference">tag</p>
+                    <div class="profileReference" id="toAltProfile" data-creatorid="${element.creatorID}">
+                        Posted By: ${element.creatorUserName}
                     </div>
                     <div class="post-controls">
                         <div id="likeBtn${element.postID}" data-postid="${element.postID}" data-currentlikes="${element.likes}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>

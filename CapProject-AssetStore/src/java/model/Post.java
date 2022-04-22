@@ -17,17 +17,20 @@ public class Post {
     private String caption;
     private String description;
     private int likes;
-    public ArrayList<String> tags;
-    //Add create by to model, javascript, and servlet
+    private int creatorID;
+    private String creatorUserName;
+    
     
     public Post(){}
 
-    public Post(int postID, String imageName, String caption, String description, int likes) {
+    public Post(int postID, String imageName, String caption, String description, int likes, int creatorID, String creatorUserName) {
         this.postID = postID;
         this.imageName = imageName;
         this.caption = caption;
         this.description = description;
         this.likes = likes;
+        this.creatorID = creatorID;
+        this.creatorUserName = creatorUserName;
     }
 
     public int getPostID() {
@@ -68,6 +71,22 @@ public class Post {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public int getCreatorID() {
+        return creatorID;
+    }
+
+    public void setCreatorID(int creatorID) {
+        this.creatorID = creatorID;
+    }
+
+    public String getCreatorUserName() {
+        return creatorUserName;
+    }
+
+    public void setCreatorUserName(String creatorUserName) {
+        this.creatorUserName = creatorUserName;
     }
 
 }

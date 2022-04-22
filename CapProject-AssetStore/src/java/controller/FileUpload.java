@@ -38,6 +38,7 @@ public class FileUpload extends HttpServlet {
         PrintWriter responseOut = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        
         Gson gson = new Gson();
         
         ArrayList<String> errorList = new ArrayList();
@@ -113,12 +114,10 @@ public class FileUpload extends HttpServlet {
                         caption = Streams.asString(stream);
                     } else if (fi.getFieldName().contains("newDescription")) {
                         description = Streams.asString(stream);
-                    } else if (fi.getFieldName().contains("tag[]")) {
-                        tagList.add(Streams.asString(stream));
-                    }
+                    } 
                 }
             }
-            isStored = PostManagement.storePost(currentUser, caption, description, fileName, tagList, errorList);
+            isStored = PostManagement.storePost(currentUser, caption, description, fileName, errorList);
 
             if (isStored = true) {
                 out.println(fileItems);

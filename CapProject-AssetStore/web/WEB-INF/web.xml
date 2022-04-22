@@ -36,6 +36,10 @@
         <servlet-name>SearchPost</servlet-name>
         <servlet-class>controller.SearchPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AltProfileManager</servlet-name>
+        <servlet-class>controller.AltProfileManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>SearchPost</servlet-name>
         <url-pattern>/SearchPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AltProfileManager</servlet-name>
+        <url-pattern>/AltProfileManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

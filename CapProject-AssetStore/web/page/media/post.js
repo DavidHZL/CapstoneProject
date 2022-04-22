@@ -97,9 +97,14 @@ function displayPosts(postList) {
                         <h3 class="postCaption">${element.caption}</h3>
                         <p class="description-post">${element.description}</p>
                     </div>
-                    <div class="profileReference" id="toAltProfile" data-creatorid="${element.creatorID}">
-                        Posted By: ${element.creatorUserName}
-                    </div>
+                    <form action="AltProfileManager" method="POST" >
+                        <input type="hidden" name="creatorID" value="${element.creatorID}" />
+        
+                        <div class="profileReference">
+                            <label for="altProfileButton">Created By:</label>
+                            <input type="submit" name="altProfileButton" class="altProfileButton" value="${element.creatorUserName}"/>
+                        </div>
+                    </form>
                     <div class="post-controls">
                         <div id="likeBtn${element.postID}" data-postid="${element.postID}" data-currentlikes="${element.likes}"><img src="resources/like_icon.png" class="likeIcon" alt="like button icon"></div>
                         <p id="likesOnPost${element.postID}" class="postLikes">${element.likes}</p>

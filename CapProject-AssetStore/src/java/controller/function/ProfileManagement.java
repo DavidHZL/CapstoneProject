@@ -28,4 +28,15 @@ public class ProfileManagement {
         }
     }
     
+    public static Profile retrieveAltProfile(int creatorID, ArrayList<String> errorList) throws SQLException {
+        try {
+            model.Profile altProfile = AccountProfileDB.retrieveAltProfileByID(creatorID);
+            
+            return altProfile;
+        } catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
+    
 }

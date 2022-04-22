@@ -68,6 +68,49 @@ public class AccountProfileDB {
         }
     }
     
+    // Retrieves the current users profile
+    public static Profile retrieveAltProfileByID(int creatorID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT ap.accountID, p.profileID, p.profileName, p.email, p.profileCaption, p.followerCount FROM accountprofile ap"
+                + " JOIN profile p ON ap.profileID = p.profileID"
+                + " WHERE ap.accountID = ?";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, creatorID);
+            rs = ps.executeQuery();
+
+            Profile userProfile = null;
+            while (rs.next())
+            {
+                userProfile = new Profile();
+                userProfile.setProfileID(rs.getInt("profileID"));
+                userProfile.setProfileName(rs.getString("profileName"));
+                userProfile.setEmail(rs.getString("email"));
+                userProfile.setProfileCaption(rs.getString("profileCaption"));
+                userProfile.setFollowerCount(rs.getInt("followerCount"));
+            }
+            
+            return userProfile;
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+    
     public static ArrayList<Post> retrieveAllPostsByProfileID(int profileID) throws SQLException, IOException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

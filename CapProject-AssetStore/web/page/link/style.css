@@ -236,10 +236,17 @@ main {
 
 .profileReference{
     font-size: 1.5rem;
-    background-color: #D82148;
-    border-radius: 10px;
-    align-items: center;
     margin-bottom: 10px;
+}
+
+.altProfileButton {
+    border: none;
+    background-color: #C2C8C2;
+    font-size: 1.5rem;
+}
+
+.altProfileButton:hover {
+    color: #D82148;
 }
 
 .title, .profileHeader{

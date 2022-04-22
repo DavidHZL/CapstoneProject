@@ -93,6 +93,7 @@ public class PostManagement {
     
     public static Profile deletePost(Account currentUser, int postID, ArrayList<String> errorList) throws SQLException, IOException {
         try {
+            PostDB.deletePostProfileLink(postID);
             PostDB.deletePostByID(postID);
             
             model.Profile userProfile = ProfileManagement.retrieveCurrentProfile(currentUser, errorList);

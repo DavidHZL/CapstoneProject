@@ -54,10 +54,7 @@ function displayProfile() {
                         <h3 class="postCaption">${post.caption}</h3>
                         <p class="description-post">${post.description}</p>
                     </div>
-                    <div class="tags-post">
-                        <p class="tag">tag</p>
-                        <p class="tag">tag</p>
-                    </div>
+
                     <div class="post-controls">
                         <span id="editPost${post.postID}"><img src="resources/editIcon.png" class="editIcon" alt="editPostIcon"></span>
                         <span id="deletePost${post.postID}" data-postid="${post.postID}"><img src="resources/deleteIcon.png" class="deleteIcon" alt="deletePostIcon"></span>

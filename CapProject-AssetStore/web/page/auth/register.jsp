@@ -17,10 +17,10 @@
             <input type="text" name="username"><br><br>
 
             <label for="password">Password: </label>
-            <input type="text" name="password"><br><br>
+            <input type="password" name="password"><br><br>
 
             <label for="passwordCheck">Re-enter Password: </label>
-            <input type="text" name="passwordCheck"><br><br>
+            <input type="password" name="passwordCheck"><br><br>
             <br>
             <label for="accountType">Account Type: </label>
             <input type="radio" name="accountType" value="user" checked>

@@ -5,7 +5,7 @@
  */
 package controller.function;
 
-import data.PostDB;
+import data.PostSearchDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class SearchManagement {
         ArrayList<Post> masterPostList = new ArrayList();
         try {
             
-            ArrayList<Post> postListByCaption = PostDB.searchForPostsByDescription(criteria);
+            ArrayList<Post> postListByCaption = PostSearchDB.searchForPostsByCaption(criteria);
             
             for (Post cPost : postListByCaption){
                 masterPostList.add(cPost);
@@ -28,7 +28,7 @@ public class SearchManagement {
             
             // Currently only adds the Caption Items
             
-//            ArrayList<Post> postListByDescription = PostDB.searchForPostsByDescription(criteria);
+//            ArrayList<Post> postListByDescription = PostSearchDB.searchForPostsByDescription(criteria);
 //            
 //            for (Post mPost : masterPostList){
 //                for(Post dPost : postListByDescription){

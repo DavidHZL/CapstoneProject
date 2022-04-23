@@ -17,6 +17,7 @@ $(document).ready(() => {
     });
     
     retrievePosts();
+    
 });
 
 function showForm() {

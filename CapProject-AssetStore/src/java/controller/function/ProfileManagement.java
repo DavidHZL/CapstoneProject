@@ -39,4 +39,37 @@ public class ProfileManagement {
         }
     }
     
+    public static int addFollowerToProfile(Account currentUser, int followingProfileID, int followerCount, ArrayList<String> errorList) throws SQLException {
+    
+        try {
+            model.Profile currentUserProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
+            
+            followerCount+=1;
+            AccountProfileDB.addFollowerToProfile(followingProfileID, followerCount);
+
+            AccountProfileDB.linkNewFollower(followingProfileID, currentUserProfile.getProfileID());
+
+            return followerCount;
+        } catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return followerCount;
+        }
+    }
+    
+    public static boolean checkFollowStatus(Account currentUser, int followingProfileID, ArrayList<String> errorList) throws SQLException {
+        
+        try {
+            model.Profile currentUserProfile = AccountProfileDB.retrieveCurrentUserProfile(currentUser);
+
+            boolean status = AccountProfileDB.checkFollowStatus(followingProfileID, currentUserProfile.getProfileID());
+
+            return status;
+        } catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return false;
+        }
+        
+    }
+    
+    
 }

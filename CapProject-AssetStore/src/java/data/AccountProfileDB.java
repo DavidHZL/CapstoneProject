@@ -190,4 +190,108 @@ public class AccountProfileDB {
             }
         }
     }
+    
+    public static void addFollowerToProfile(int followingProfileID, int followerCount) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String query = "Update profile Set followerCount = ? "
+                + "Where profileID = ?";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, followerCount);
+            ps.setInt(2, followingProfileID);
+            
+            ps.executeUpdate();
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+    
+    public static boolean checkFollowStatus(int followingProfileID, int currentProfileID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean status = false;
+        
+        String query
+                = "SELECT * FROM profilefollower "
+                + "WHERE followingProfileID = ?";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, followingProfileID);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int receivedFollowerID = rs.getInt("followerProfileID");
+                
+                if(currentProfileID != receivedFollowerID) {
+                    status = false;
+                } else {
+                    status = true;
+                    break;
+                }
+            }
+            return status;
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+    
+    public static void linkNewFollower(int followingProfileID, int currentProfileID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String query
+                = "INSERT INTO profilefollower (followerProfileID, followingProfileID) "
+                + "VALUES (?, ?)";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, currentProfileID);
+            ps.setInt(2, followingProfileID);
+            
+            ps.executeUpdate();
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
 }

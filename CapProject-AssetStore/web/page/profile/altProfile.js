@@ -5,6 +5,7 @@ $(document).ready(() => {
     console.log(altUserProfile);
     
     loadAltProfile();
+    followingStatus(altUserProfile.profileID);
 });
 
 function loadAltProfile() {
@@ -15,7 +16,11 @@ function loadAltProfile() {
             <h1 class="profileHeader">
                 <div class="profileName">${altUserProfile.email}</div>
                 <div class="profileEmail">${altUserProfile.profileName}</div>
-                <div class="followerCount">${altUserProfile.followerCount} Followers</div>
+                
+                <div class="followerCount">
+                    <div class="followBtn" id="followBtn" data-followercount="${altUserProfile.followerCount}" data-profileID="${altUserProfile.profileID}">Follow ${altUserProfile.profileName}</div>
+                    <p id="followerNum">${altUserProfile.followerCount} Followers</p>
+                </div>
             </h1>
 
             `;
@@ -60,5 +65,45 @@ function loadAltProfile() {
     profileContentHTML += `</div>`;
 
     $("#profileContent").append(profileContentHTML);
+    
+    $("#followBtn").click(followProfile);
 
 }
+
+function followProfile() {
+    $("#followBtn").attr("disable", true);
+    
+    ajaxCall("Follow", 
+        {"followingProfileID": $(this).attr("data-profileid"),
+        "followerCount" : $(this).attr("data-followercount")},
+        "POST", (result) => {
+            $("#followBtn").hide();
+            $("#followerNum").html(`${result} followers`);
+        }
+    );
+}
+
+function followingStatus(profileID) {
+    ajaxCall("Follow",
+        {"followingProfileID" : profileID},
+        "GET", (result) => {
+            var status = result;
+            if (status !== false) {
+                $("#followBtn").hide();
+            }
+        }
+    );
+}
+
+var ajaxCall = (url, data, type, callback) => {
+    $.ajax({
+        type: type,
+        url: url,
+        data: data,
+        dataType: "JSON",
+        success: callback,
+        error: function (jqXHR, ex) {
+            console.log(jqXHR);
+        }
+    });
+};

@@ -40,6 +40,10 @@
         <servlet-name>AltProfileManager</servlet-name>
         <servlet-class>controller.AltProfileManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Follow</servlet-name>
+        <servlet-class>controller.Follow</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Navigation</servlet-name>
         <url-pattern>/Navigation</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>AltProfileManager</servlet-name>
         <url-pattern>/AltProfileManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Follow</servlet-name>
+        <url-pattern>/Follow</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

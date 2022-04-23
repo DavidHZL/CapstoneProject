@@ -25,12 +25,6 @@
                                     <input type="submit" value="Profile" class="navButton">
                                 </form>
                             </li>
-                            <li class="navListItem">
-                                <form action="Navigation" method="POST">
-                                    <input type="hidden" name="url" value="/page/store/cart.jsp">
-                                    <input type="submit" value="Cart" class="navButton">
-                                </form>
-                            </li>
                         </c:if>
                     </div>
                     <div class="navSection">
@@ -47,12 +41,6 @@
                                 <form action="Navigation" method="POST">
                                     <input type="hidden" name="url" value="/page/media/media-home.jsp">
                                     <input type="submit" value="Home" class="navButton">
-                                </form>
-                            </li>
-                            <li class="navListItem">
-                                <form action="Navigation" method="POST">
-                                    <input type="hidden" name="url" value="/page/store/store-home.jsp">
-                                    <input type="submit" value="Store" class="navButton">
                                 </form>
                             </li>
                         </c:if>

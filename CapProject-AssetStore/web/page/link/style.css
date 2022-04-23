@@ -289,6 +289,25 @@ main {
     resize: none;
 }
 
+.followerCount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.followBtn {
+    background-color: #6EBF8B;
+    border-radius: 20px;
+    color: #151D3B;
+    padding: 5px 15px;
+}
+
+.followBtn:hover{
+    background-color: #D82148;
+    color: #151D3B;
+}
+
 .styledBtn {
     border: none;
     border-radius: 20px;

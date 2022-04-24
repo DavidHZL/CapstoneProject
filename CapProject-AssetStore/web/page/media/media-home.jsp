@@ -21,9 +21,23 @@
 
             <input type="button" id="newPostBtn" class="styledBtn" value="New Post" />
         </div>
-
-        <div class="allPostContainer" id="allPostContainer">
+        <div class="media-home-container">
+            <div class="allPostContainer" id="allPostContainer">
+                
+            </div>
+            
+            <div class="trending">
+                <div name="topPosts" class="topPosts" id="trendingPosts">
+                    
+                </div>
+            
+                <div name="topProfiles" class="topProfiles" id="trendingProfiles">
+                    
+                </div>
+            </div>
+            
         </div>
+        
 
         <div id="mainModal" class="modalBackground">
         </div>

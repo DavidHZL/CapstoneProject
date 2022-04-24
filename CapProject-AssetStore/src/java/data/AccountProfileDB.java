@@ -68,7 +68,7 @@ public class AccountProfileDB {
         }
     }
     
-    // Retrieves the current users profile
+    // Retrieves other users profile
     public static Profile retrieveAltProfileByID(int creatorID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -159,6 +159,51 @@ public class AccountProfileDB {
             }
         }
         return postList;
+    }
+    
+    // Retrieves the trending users profile
+    public static ArrayList<Profile> retrieveTrendingProfiles() throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "SELECT ap.accountID, p.profileID, p.profileName, p.email, p.profileCaption, p.followerCount FROM accountprofile ap"
+                + " JOIN profile p ON ap.profileID = p.profileID"
+                + " ORDER BY followerCount DESC"
+                + " LIMIT 3";
+        ArrayList <Profile> trendingProfiles = new ArrayList();
+        try {
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            Profile userProfile = null;
+            while (rs.next())
+            {
+                userProfile = new Profile();
+                userProfile.setProfileID(rs.getInt("profileID"));
+                userProfile.setProfileName(rs.getString("profileName"));
+                userProfile.setEmail(rs.getString("email"));
+                userProfile.setProfileCaption(rs.getString("profileCaption"));
+                userProfile.setFollowerCount(rs.getInt("followerCount"));
+                
+                trendingProfiles.add(userProfile);
+            }
+            
+            return trendingProfiles;
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (ps != null & rs != null) {
+                    ps.close();
+                    rs.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
     }
     
     public static void addProfileCaption(String newCaption, int profileID) throws SQLException {

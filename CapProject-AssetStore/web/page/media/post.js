@@ -18,6 +18,10 @@ $(document).ready(() => {
     
     retrievePosts();
     
+    retrieveTrendingPosts();
+    
+    retrieveTrendingProfiles();
+    
 });
 
 function showForm() {
@@ -121,6 +125,39 @@ function displayPosts(postList) {
     });
 }
 
+function fillTrendingPostList(trendingPosts) {
+    $("#trendingPosts").html(``);
+    
+    $("#trendingPosts").append(`<h2 class="trending-title">Trending Posts</h2>`);
+    
+    trendingPosts.forEach((post) =>{
+       $("#trendingPosts").append(`
+            <div class="trendingItem">${post.caption} -- 
+            
+                <form action="AltProfileManager" method="POST" >
+                        <input type="hidden" name="creatorID" value="${post.creatorID}" />
+
+                        <div class="profileReference">
+                            <input type="submit" name="altProfileButton" class="altProfileButton" value="${post.creatorUserName}"/>
+                        </div>
+                </form>
+            </div>
+        `); 
+    });
+}
+
+function fillTrendingProfileList(trendingProfiles) {
+    $("#trendingProfiles").html(``);
+    
+    $("#trendingProfiles").append(`<h2 class="trending-title">Trending Profiles</h2>`);
+    
+    trendingProfiles.forEach((profile) => {
+        $("#trendingProfiles").append(`
+            <p class="trendingItem">${profile.profileName} -- ${profile.followerCount} followers</p>
+        `); 
+    });
+}
+
 function reloadPosts() {
     $("#clearAllBtn").addClass("hidden");
     
@@ -193,6 +230,32 @@ function searchForPosts(){
             var retrievedPostList = result;
             
             displayPosts(retrievedPostList);
+        }
+    );
+}
+
+function retrieveTrendingPosts() {
+    var trendingPostList = "";
+    ajaxCall("Trending", 
+        {},
+        "GET", (result) => {
+            
+            var trendingPostList = result;
+            
+            fillTrendingPostList(trendingPostList);
+        }
+    );
+}
+
+function retrieveTrendingProfiles(){
+    var trendingProfileList = "";
+    ajaxCall("Trending", 
+        {},
+        "POST", (result) => {
+            
+            var trendingProfileList = result;
+            
+            fillTrendingProfileList(trendingProfileList);
         }
     );
 }

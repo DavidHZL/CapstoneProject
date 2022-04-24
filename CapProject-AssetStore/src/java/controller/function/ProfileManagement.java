@@ -39,6 +39,16 @@ public class ProfileManagement {
         }
     }
     
+    public static ArrayList<Profile> retrieveTrendingProfiles(ArrayList<String> errorList){
+        try {
+            ArrayList<Profile> trendingProfileList = AccountProfileDB.retrieveTrendingProfiles();
+            return trendingProfileList;
+        } catch(SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
+    
     public static int addFollowerToProfile(Account currentUser, int followingProfileID, int followerCount, ArrayList<String> errorList) throws SQLException {
     
         try {

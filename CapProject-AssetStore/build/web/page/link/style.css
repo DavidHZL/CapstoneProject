@@ -165,6 +165,54 @@ main {
     gap: 15px;
 }
 
+.media-home-container{
+    display: grid;
+    grid-template-columns: 1fr 400px; 
+}
+
+.trending {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 150px;
+    margin-top: 100px;
+}
+
+.topPosts, .topProfiles {
+    min-width: 350px;
+    min-height: 250px;
+    background-color: #C2C8C2;
+    border: 5px outset #6EBF8B;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.trending-title{
+    color: black;
+    border-bottom: 4px ridge white;
+}
+
+.trendingItem{
+    min-width: 200px;
+}
+
+/*.trendingItem:nth-child(1){
+    border-bottom: 3px ridge #D82148;
+    border-top: 3px ridge #D82148;
+}
+
+.trendingItem:last-child{
+    border-bottom: 3px ridge #D82148;
+    border-top: 3px ridge #D82148;
+}*/
+
 .allPostContainer {
     display: flex;
     flex-direction: column;

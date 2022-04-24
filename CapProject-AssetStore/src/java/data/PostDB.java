@@ -76,6 +76,58 @@ public class PostDB {
         }
         return postList;
     }
+    
+    public static ArrayList<Post> retrieveTrendingPosts() throws SQLException, IOException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        FileOutputStream fs = null;
+
+        String query = "SELECT * FROM post "
+                + "ORDER BY likes DESC "
+                + "LIMIT 3";
+        
+        ArrayList<Post> postList = new ArrayList();
+        try {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            Post post;
+            while (resultSet.next()) {
+
+                File f = new File("c:\\Users\\Dadvid\\source\\repos\\CapstoneProject\\CapProject-AssetStore\\web\\resources\\" + resultSet.getString("imageName"));
+                fs = new FileOutputStream(f);
+                Blob blob = resultSet.getBlob("image");
+                byte b[] = blob.getBytes(1, (int) blob.length());
+                fs.write(b);
+
+                post = new Post();
+                post.setPostID(resultSet.getInt("postID"));
+                post.setImageName(resultSet.getString("imageName"));
+                post.setCaption(resultSet.getString("caption"));
+                post.setDescription(resultSet.getString("description"));
+                post.setLikes(resultSet.getInt("likes"));
+                post.setCreatorID(resultSet.getInt("creatorID"));
+                post.setCreatorUserName(resultSet.getString("creatorUserName"));
+
+                postList.add(post);
+            }
+        } catch (SQLException | IOException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return postList;
+    }
 
     public static int addPost(Post post) throws SQLException, FileNotFoundException {
         ConnectionPool pool = ConnectionPool.getInstance();

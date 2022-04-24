@@ -42,6 +42,16 @@ public class PostManagement {
             return null;
         }
     }
+    
+    public static ArrayList<Post> retrieveTrendingPosts(ArrayList<String> errorList) throws IOException{
+        try {
+            ArrayList<Post> trendingPostList = PostDB.retrieveTrendingPosts();
+            return trendingPostList;
+        } catch(SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+    }
 
     public static Boolean storePost(Account currentUser, String caption, String description, String imageName, ArrayList<String> errorList) throws FileNotFoundException {
         if (validatePost(caption, description, imageName, errorList)) {

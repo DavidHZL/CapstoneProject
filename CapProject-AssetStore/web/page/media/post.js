@@ -85,6 +85,7 @@ function showForm() {
     });
 
     $("#mainModal").fadeIn(200);
+    
 }
 
 function displayPosts(postList) {
@@ -118,7 +119,6 @@ function displayPosts(postList) {
         
         $("#likeBtn"+element.postID).click(likePost);
     });
-    
 }
 
 function reloadPosts() {
@@ -173,6 +173,7 @@ function retrievePosts() {
         success: (result) => {
             postList = result;
             console.log(postList);
+            
             displayPosts(postList);
         },
         error: function (jqXHR, ex) {

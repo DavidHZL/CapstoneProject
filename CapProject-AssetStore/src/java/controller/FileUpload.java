@@ -39,7 +39,11 @@ public class FileUpload extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
+        HttpSession session = request.getSession();
+        Account currentUser = (Account) session.getAttribute("currentUser");
+        
         Gson gson = new Gson();
+        
         
         ArrayList<String> errorList = new ArrayList();
         ArrayList<Post> postList;
@@ -48,6 +52,7 @@ public class FileUpload extends HttpServlet {
 
         String postListJSON = gson.toJson(postList);
 
+        
         responseOut.println(postListJSON);
     }
 

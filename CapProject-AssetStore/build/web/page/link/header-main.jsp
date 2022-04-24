@@ -43,6 +43,14 @@
                                     <input type="submit" value="Home" class="navButton">
                                 </form>
                             </li>
+                            <c:if test="${currentUser.accountType eq 'admin'}">
+                                <li class="navListItem">
+                                    <form action="Navigation" method="POST">
+                                        <input type="hidden" name="url" value="/page/admin/admin-viewposts.jsp">
+                                        <input type="submit" value="Overview" class="navButton">
+                                    </form>
+                                </li>
+                            </c:if>
                         </c:if>
                     </div>
                     <div class="navSection">

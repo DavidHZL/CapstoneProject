@@ -36,7 +36,7 @@ function loadAltProfile() {
         profileContentHTML +=
                 `
             <div class="profileCaption">
-                    
+                    <p>No Caption Available</p>
             </div>
             `;
     }

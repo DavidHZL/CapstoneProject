@@ -46,7 +46,7 @@
                             <c:if test="${currentUser.accountType eq 'admin'}">
                                 <li class="navListItem">
                                     <form action="Navigation" method="POST">
-                                        <input type="hidden" name="url" value="/page/admin/admin-viewposts.jsp">
+                                        <input type="hidden" name="url" value="/page/admin/overview.jsp">
                                         <input type="submit" value="Overview" class="navButton">
                                     </form>
                                 </li>

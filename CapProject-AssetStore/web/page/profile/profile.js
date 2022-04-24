@@ -165,7 +165,7 @@ function createCaption() {
                 "profileID" : $(this).attr("data-profileid")},
                 "Post", (result) => {
                     $("#mainModal").fadeOut(500);
-                        loadCurrentUser();
+                    loadCurrentUser();
                 }
             );
 }

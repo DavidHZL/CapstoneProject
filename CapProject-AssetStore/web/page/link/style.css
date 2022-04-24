@@ -170,6 +170,7 @@ main {
     flex-direction: column;
     flex-wrap: wrap;
     gap: 15px;
+    margin-top: 15px;
 }
 
 .card-post {

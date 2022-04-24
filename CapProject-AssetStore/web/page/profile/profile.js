@@ -159,6 +159,19 @@ function deletePost() {
     });
 }
 
+function editPost() {
+    console.log($(this).attr("data-postid"));
+    ajaxCall("EditPost",
+                {"editedPostID" : $(this).attr("data-postid"),
+                "editedPostCaption" : $("#editPostCaption").val(),
+                "editedPostDescription" : $("#editPostDescription").val()},
+                "Post", (result) => {
+                    currentUser = result;
+                    $("#mainModal").fadeOut(500);
+                    displayProfile();
+            });
+}
+
 function createCaption() {
     ajaxCall("CaptionManager",
                 {"newCaption" : $("#newProfileCaption").val(),

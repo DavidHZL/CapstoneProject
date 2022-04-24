@@ -16,34 +16,22 @@ import model.Post;
  * @author Dadvid
  */
 public class SearchManagement {
-    public static ArrayList<Post> searchForPosts (String criteria, ArrayList<String> errorList){
+
+    public static ArrayList<Post> searchForPosts(String criteria, ArrayList<String> errorList) {
         ArrayList<Post> masterPostList = new ArrayList();
         try {
-            
-            ArrayList<Post> postListByCaption = PostSearchDB.searchForPostsByCaption(criteria);
-            
-            for (Post cPost : postListByCaption){
-                masterPostList.add(cPost);
+
+            ArrayList<Post> completePostList = PostSearchDB.searchForPosts(criteria);
+
+            for (Post cpPost : completePostList){
+                if (!masterPostList.contains(cpPost)){
+                    masterPostList.add(cpPost);
+                }
             }
-            
-            // Currently only adds the Caption Items
-            
-//            ArrayList<Post> postListByDescription = PostSearchDB.searchForPostsByDescription(criteria);
-//            
-//            for (Post mPost : masterPostList){
-//                for(Post dPost : postListByDescription){
-//                    if (mPost.getPostID() == dPost.getPostID()) {
-//                        
-//                    } else {
-//                        masterPostList.add(dPost);
-//                    }
-//                }
-//                
-//            }
-            
+
             return masterPostList;
-            
-        } catch(SQLException | IOException ex) {
+
+        } catch (SQLException | IOException ex) {
             errorList.add(ex.getMessage());
             return null;
         }

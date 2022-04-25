@@ -1,0 +1,407 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 4, 2022, 7:28:16 PM
+    Author     : Dadvid
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: monospace, Georgia, "Courier New";
+    background-color: #151D3B;
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    margin-left: 225px;
+}
+
+.navbar {
+    background-color: #151D3B;
+    border-right: 10px solid #D82148;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 215px;
+    height: 100%;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+
+.navSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.navList{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.navButton {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #151D3B;
+    color: #6EBF8B;
+    width: 215px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.navButton:hover {
+    background-color: #6EBF8B;
+    color: #DADBBD;
+}
+
+main {
+    min-height: 100vh;
+}
+
+.mainContent {
+    margin: 15px;
+    min-width: 550px;
+    padding: 15px;
+}
+
+.loginFrm, .registerFrm {
+    color: white;
+    font-size: 1.75rem;
+}
+
+
+.modalTitle {
+    text-align: center;
+    border-bottom: 2px solid #D82148;
+    margin-bottom: 5px;
+}
+
+.modalBackground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0, 0.4);
+}
+
+.modalContent {
+    background-color: #151D3B;
+    color: white;
+    margin: 8% auto;
+    padding: 20px;
+    border: 1px solid #D82148;
+    box-shadow: 0px 4px 5px black;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.closeButton {
+    color: rgb(0, 167, 225);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeButton:hover,
+.closeButton:focus{
+    color: rgb(255, 166, 48);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.newPostForm.hidden{
+    display: none;
+}
+
+.styledBtn.hidden {
+    display: none;
+}
+
+.newPostForm {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 600px;
+    width: 620px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 25px;
+    box-shadow: 2px 2px 2px black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.newPostForm:nth-child(3) .newPostForm:nth-child(4) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controlContainer {
+    font-size: 2rem;
+}
+
+.tagContainer{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.media-home-container{
+    display: grid;
+    grid-template-columns: 1fr 400px; 
+}
+
+.trending {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 150px;
+    margin-top: 100px;
+}
+
+.topPosts, .topProfiles {
+    min-width: 350px;
+    min-height: 250px;
+    background-color: #C2C8C2;
+    border: 5px outset #6EBF8B;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.trending-title{
+    color: black;
+    border-bottom: 4px ridge white;
+}
+
+.trendingItem{
+    min-width: 200px;
+}
+
+/*.trendingItem:nth-child(1){
+    border-bottom: 3px ridge #D82148;
+    border-top: 3px ridge #D82148;
+}
+
+.trendingItem:last-child{
+    border-bottom: 3px ridge #D82148;
+    border-top: 3px ridge #D82148;
+}*/
+
+.allPostContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.card-post {
+    max-width: 1000px;
+    min-width: 850px;
+    min-height: 250px;
+    background-color: #C2C8C2;
+    border: 5px outset #6EBF8B;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
+    margin: 0 auto;
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.post-info{
+    grid-area: 1/1/2/2;
+    display: grid;
+    grid-template-rows: 1fr 40px 40px;
+    text-align: center;
+}
+
+.post-main-info{
+    grid-area: 1/1/2/2;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.postCaption {
+    font-size: 2rem;
+}
+
+.description-post {
+    font-size: 1.25rem;
+}
+
+.postLikes {
+    font-size: 1.25rem;
+}
+
+.post-img-container {
+    display:grid;
+    margin: 0 auto;
+    align-content: center;
+    max-width: 400px;
+}
+
+.img-post{
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
+}
+
+.post-controls {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+}
+
+.profileReference{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.altProfileButton {
+    border: none;
+    background-color: #C2C8C2;
+    font-size: 1.5rem;
+}
+
+.altProfileButton:hover {
+    color: #D82148;
+}
+
+.title, .profileHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+    border-bottom: 5px solid #D82148;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.profilePostHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profileCaption {
+    color: white;
+    margin: 50px auto;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 95%;
+    height: 50px;
+    padding: 10px 20px;
+    border-top: 5px outset #D82148;
+}
+
+.newCaptionTextArea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.followerCount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.followBtn {
+    background-color: #6EBF8B;
+    border-radius: 20px;
+    color: #151D3B;
+    padding: 5px 15px;
+}
+
+.followBtn:hover{
+    background-color: #D82148;
+    color: #151D3B;
+}
+
+.styledBtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #6EBF8B;
+    color: #151D3B;
+    padding: 15px 30px;
+    margin-top: 20px;
+}
+
+.styledBtn:hover {
+    background-color: #D82148;
+    color: #151D3B;
+}
+
+.editIcon, .deleteIcon, .likeIcon {
+    padding: 5px;
+    width: 40%;
+    border-radius: 5px;
+}
+
+.editIcon:hover,
+.deleteIcon:hover{
+    background-color: #6EBF8B;
+}
+
+.likeIcon:hover {
+    background-color: #D82148;
+}
+
+.searchBar {
+    width: 325px;
+    height: 25px;
+    padding: 5px;
+}
+
+
+footer {
+    color: black;
+    background: #C2C8C2;
+    color: #151D3B;
+    margin-top: auto;
+    text-align: center;
+    border-top: 5px solid #D82148;
+}
+
+.footerContent {
+    margin: 15px;
+}
